@@ -1,3 +1,5 @@
+var timerEl = document.getElementById('timer');
+
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainerEl = document.getElementById
@@ -19,7 +21,36 @@ function startQuiz() {
   currentQuestionIndex = 0
   questionContainerEl.classList.remove('hide')
   setNextQuestion()
+  timer();
 }
+
+function timer() {
+    var timeLeft = 90;
+  
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    var timeInterval = setInterval(function () {
+      // As long as the `timeLeft` is greater than 1
+      if (timeLeft > 1) {
+        // Set the `textContent` of `timerEl` to show the remaining seconds
+        timerEl.textContent = timeLeft + ' seconds remaining';
+        // Decrement `timeLeft` by 1
+        timeLeft--;
+      } else if (timeLeft === 1) {
+        // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+        timerEl.textContent = timeLeft + ' second remaining';
+        timeLeft--;
+      } else {
+        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+        timerEl.textContent = '';
+        // Use `clearInterval()` to stop the timer
+        clearInterval(timeInterval);
+        // Call the `displayMessage()` function
+        displayMessage();
+      }
+    }, 1000);
+  }
+
+
 
 function setNextQuestion() {
     resetState()
@@ -63,10 +94,15 @@ function selectAnswer(e) {
     }
 }
 
+// scoring
+
+var score = 0;
+
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
         element.classList.add('correct')
+        console.log
     } else {
         element.classList.add('wrong')
     }
@@ -76,6 +112,18 @@ function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
+
+// function finalScore(){
+//     var i = 0;
+//     var select1 = document.getElementById('score');
+//     var answer1 = select1.options[select1.selectedIndex].value;
+//         if(answer == "correct"){
+//             i++;
+//         }
+    
+//     document.getElementById("scoreDisplay").innerHTML = i;
+//     }
+
 
 const questions = [
     {

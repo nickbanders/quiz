@@ -11,31 +11,57 @@
 
 body {
     --hue: var(--hue-neutral);
-    padding: 0;
-    margin: 0;
     display: flex;
-    width: 100vw;
-    height: 100vw;
+    flex-direction: column;
+    height: 50vw;
     justify-content: center;
     align-items: center;
     background-color: hsl(var(--hue), 100%, 20%);
 }
 
 body.correct {
-    --hue: var(--hue-correct);
+    background-image: url("https://compote.slate.com/images/4ba866e4-7c66-4322-90e6-9bc0df06e4ef.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 body.wrong {
     background-image: url("https://i.kym-cdn.com/entries/icons/original/000/016/729/large.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+
+.info {
+    width: 600px;
+    width: 600px;
+    max-width: 75%;
+    background-color: rgba(255, 255, 255, 0.808);
+    border-radius: 5px;
+
+    box-shadow: 0 0 25px 10px rgb(0 0 0 / .25);
+    margin-bottom: 25px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.score, .timer {
+    text-align: center;
+    padding: 0 20px 0 20px;
+    line-height: .5;
+}
+
+
 .container {
-    width: 800px;
-    max-width: 80%;
+    width: 600px;
+    max-width: 75%;
     background-color: white;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 0 25px 10px rgb(0 0 0 / .25);
+    vertical-align: middle;
 }
 
 .btn.grid {
