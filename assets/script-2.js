@@ -1,11 +1,13 @@
 var timerEl = document.getElementById('timer');
-
+var score = document.getElementById('score');
+var endScreenEl = document.querySelector("#end-screen");
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
-const questionContainerEl = document.getElementById
-('question-container')
+const questionContainerEl = document.getElementById('question-container')
 const questionEl = document.getElementById('question')
 const answerButtonsEl = document.getElementById('answer-buttons')
+
+var score = 0;
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -24,20 +26,22 @@ function startQuiz() {
   timer();
 }
 
+
+var timeLeft = 90;
+
+
 function timer() {
-    var timeLeft = 90;
-  
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
       // As long as the `timeLeft` is greater than 1
       if (timeLeft > 1) {
         // Set the `textContent` of `timerEl` to show the remaining seconds
-        timerEl.textContent = timeLeft + ' seconds remaining';
+        timerEl.textContent = timeLeft;
         // Decrement `timeLeft` by 1
         timeLeft--;
       } else if (timeLeft === 1) {
         // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-        timerEl.textContent = timeLeft + ' second remaining';
+        timerEl.textContent = timeLeft;
         timeLeft--;
       } else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
@@ -45,11 +49,27 @@ function timer() {
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
         // Call the `displayMessage()` function
-        displayMessage();
+        endScreen();
       }
     }, 1000);
   }
-
+  
+  var endScreen = function () {
+    if (questionsEl.classList != "hidden") {
+      questionsEl.classList.add("hidden");
+    }
+    if (correctAnswerEl.classList != "hidden") {
+      correctAnswerEl.classList.add("hidden");
+    }
+    if (wrongAnswerEl.classList != "hidden") {
+      wrongAnswerEl.classList.add("hidden");
+    }
+    if (nextBtnEl.classList != "hidden") {
+      nextBtnEl.classList.add("hidden");
+    }
+    endScreenEl.classList.remove("hidden");
+    highScoreEl.textContent = highScore;
+  };
 
 
 function setNextQuestion() {
@@ -71,6 +91,7 @@ function showQuestion(question) {
   })
 }
 
+
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
@@ -79,51 +100,45 @@ function resetState() {
     }
 }
 
-function selectAnswer(e) {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
+
+var selectAnswer = function (event) {
+    let selectedButton = event.target
+    let correct = selectedButton.dataset.correct
     setStatusClass(document.body, correct)
     Array.from(answerButtonsEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-     nextButton.classList.remove('hide')   
+    if (correct === "true") {
+      score++;
     } else {
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
+      timeLeft = timeLeft - 5;
     }
-}
+
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide'); 
+       } else {
+           startButton.innerText = 'Restart'
+           startButton.classList.remove('hide');
+           
+       } console.log(score)
+  };
+
 
 // scoring
-
-var score = 0;
 
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
-        element.classList.add('correct')
-        console.log
+      element.classList.add('correct')
     } else {
-        element.classList.add('wrong')
+      element.classList.add('wrong')
     }
-}
+  }
 
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
-
-// function finalScore(){
-//     var i = 0;
-//     var select1 = document.getElementById('score');
-//     var answer1 = select1.options[select1.selectedIndex].value;
-//         if(answer == "correct"){
-//             i++;
-//         }
-    
-//     document.getElementById("scoreDisplay").innerHTML = i;
-//     }
-
 
 const questions = [
     {

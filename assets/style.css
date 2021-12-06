@@ -13,7 +13,7 @@ body {
     --hue: var(--hue-neutral);
     display: flex;
     flex-direction: column;
-    height: 50vw;
+    padding-top: 100px;
     justify-content: center;
     align-items: center;
     background-color: hsl(var(--hue), 100%, 20%);
@@ -80,19 +80,26 @@ body.wrong {
     background-color: hsl(var(--hue), 100%, 50%);
     color: white;
     outline: none;
+    transition-duration: .4s;
 }
 
 .btn:hover {
-    border-color: black;
+    background-color: black;
 }
 
 .btn.correct {
-    --hue:var(--hue-correct);
+    background-color: #78eb31 !important;
+    
 }
 
 .btn.wrong {
-    --hue:var(--hue-wrong);
+    background-color: #8c8c8c;
 }
+
+.btn:focus {
+    background-color: #eb3131;
+}
+
 
 .start-btn, .next-btn {
     font-size: 1.5rem;
@@ -108,4 +115,10 @@ body.wrong {
 
 .hide {
     display: none;
+}
+
+.jqbox_innerhtml {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
 }
